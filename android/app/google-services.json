@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "432860289196",
+    "project_id": "kwader-e355c",
+    "storage_bucket": "kwader-e355c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432860289196:android:86fa3c529598e7e9db6709",
+        "android_client_info": {
+          "package_name": "com.example.kwader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432860289196-k3ganhtoirdvdmmouvngfppo38k7tc3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kwader",
+            "certificate_hash": "a6a6465123b9f44a938c44e097176b2764b53de3"
+          }
+        },
+        {
+          "client_id": "432860289196-kdm9r58h54s7rjf2itst2dflll2t9ifa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuDLuRMMkNCyVFldeJLbq4d84nw6MFATw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432860289196-kdm9r58h54s7rjf2itst2dflll2t9ifa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
