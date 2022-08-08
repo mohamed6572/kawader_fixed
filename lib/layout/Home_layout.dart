@@ -18,6 +18,8 @@ class Home_Layout extends StatelessWidget {
       create: (context) => AppCubit()
         ..getUserData()
         ..getSilderImage()
+      ..getpas()
+      ..getcli()
        ,
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {

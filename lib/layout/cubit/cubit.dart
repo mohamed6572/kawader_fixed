@@ -134,7 +134,6 @@ emit(getSliderImageErrorState());
 
   ////////////////////////
   List<addModel> posts = [];
-  List<addModel> postsUser = [];
 
   void getofficeposts() {
     FirebaseFirestore.instance.collection('posts').snapshots().listen((event) {
@@ -153,23 +152,26 @@ emit(getSliderImageErrorState());
 
     });
   }
-  // int nu = 0;
-  // List<int> nn =  [0,1,2,3,4,5,6,7,8,9,10,11,12,13];
-  //
-  // void getpas()async{
-  //   postsUser=[];
-  //   nn.forEach((element) async{
-  //     await FirebaseFirestore.instance.collection('posts').doc("$uIdd"+'$element').get().then((value) {
-  //       postsUser.add(addModel.fromJson(value.data()!));
-  //       emit(AppgetPostSucsesState());
-  //
-  //     }).catchError((e){
-  //       emit(AppgetPostErrorState(e));
-  //
-  //     });
-  //   });
-  //
-  // }
+  List<addModel> postsUser = [];
+
+  void getpas()async{
+    FirebaseFirestore.instance.collection('posts').snapshots().listen((event) {
+      postsUser = [];
+      event.docs.forEach((element) {
+       String a= element.get('uId');
+       if(a==uIdd) {
+          postsUser.add(addModel.fromJson(element.data()));
+          emit(AppgetPosttSucsesState());
+
+       }else{
+         return null;
+       }
+
+      });
+
+    });
+
+  }
 ///////////////////clint
 
 
@@ -262,24 +264,33 @@ emit(getSliderImageErrorState());
 
     });
   }
-  // int nu1 = 0;
-  // List<int> nn1 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+  // void delete()async{
+  //   FirebaseFirestore.instance.collection('posts').doc().delete().then((value) {
+  //     emit(AppdeletepostSucssesState());
   //
-  // void getcli()async{
-  //   clientsUser=[];
-  //   nn1.forEach((element) async{
-  //     await FirebaseFirestore.instance.collection('client').doc("$uIdd"+'$element').get().then((value) {
-  //       clientsUser.add(addModel.fromJson(value.data()!));
-  //       emit(AppgetPostSucsesState());
-  //
-  //     }).catchError((e){
-  //       emit(AppgetPostErrorState(e));
-  //
-  //     });
   //   });
-  //
   // }
 
+  List<addModel> clientsUser = [];
+
+  void getcli()async{
+    FirebaseFirestore.instance.collection('client').snapshots().listen((event) {
+      clientsUser = [];
+      event.docs.forEach((element) {
+        String a= element.get('uId');
+        if(a==uIdd) {
+          clientsUser.add(addModel.fromJson(element.data()));
+          emit(AppgetclienttSucsesState());
+
+        }else{
+          return null;
+        }
+
+      });
+
+    });
+
+  }
 
   int CurrentIndex = 0;
 void backtohome(){
