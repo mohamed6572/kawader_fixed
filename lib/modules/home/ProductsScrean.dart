@@ -2,20 +2,26 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kwader/layout/Home_layout.dart';
 import 'package:kwader/layout/cubit/cubit.dart';
 import 'package:kwader/layout/cubit/states.dart';
+import 'package:kwader/modules/office/office.dart';
 import 'package:kwader/shared/components/components.dart';
+
+import '../maids/maids.dart';
+import '../paid_adds/paid_adds.dart';
 
 class ProductsScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   BlocProvider(
-      create: (context) => AppCubit()..getSilderImage()..getofficeposts()..getClientposts(),
+      create: (context) => AppCubit()..getSilderImage(),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return Material(
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: BuildCondition(
                 condition: AppCubit.get(context).slider !=0,
                 //AppCubit.get(context).slider.length >=0
@@ -23,21 +29,27 @@ class ProductsScrean extends StatelessWidget {
                 builder: (context) =>  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Image(image: AssetImage('assets/images/logo.jpeg')),
                     CarouselSlider(
                         items: AppCubit.get(context).slider
-                            .map((e) => ClipRRect(
+                            .map((e) => GestureDetector(
+                          onTap: (){
+                            navigateTo(context, paid_Adds());
+                          },
+                              child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image(
-                            image: NetworkImage('${e.image}'),
-                            width: double.infinity,
-                            fit: BoxFit.contain,
+                              image: NetworkImage('${e.image}'),
+                              width: double.infinity,
+                              fit: BoxFit.contain,
                           ),
-                        ))
+                        ),
+                            ))
                             .toList(),
                         options: CarouselOptions(
                           scrollDirection: Axis.horizontal,
                           autoPlay: true,
-                          height: 240.0,
+                          height: 230.0,
                           initialPage: 0,
                           reverse: false,
                           viewportFraction: 1.0,
@@ -57,47 +69,35 @@ class ProductsScrean extends StatelessWidget {
                         color: Colors.grey[400],
                       ),
                     ),
-                    Text(
-                      'مكاتب الشغالات',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    if(AppCubit.get(context).posts!=null)
-                    Container(
-                      height: 290,
-                      padding: EdgeInsetsDirectional.only(top: 3),
-                      color: Colors.grey[200],
-                      child: ListView.separated(
-                        itemCount:AppCubit.get(context).posts.length ,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index) =>BuildGridProduct(context,AppCubit.get(context).posts[index]),
 
-                        separatorBuilder: (BuildContext context, int index) => SizedBox(width: 9,) ,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        tap(
+                          widget: Office(
+                            title: 'مكاتب الشغالات',
+                          ),
+                          icon: Icons.apartment,
+                          context: context,
+                          text: 'مكاتب الشغالات'
+                        ),    tap(
+                          widget: Maids(
+                            title: 'الشغالات',
+                          ),
+                          icon: Icons.cleaning_services,
+                          context: context,
+                          text: 'الشغالات'
+                        ),
+                      ]
+                      ,
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      'الشغالات',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    if(AppCubit.get(context).clients != null)
-                      Container(
-                      height: 290,
-                      padding: EdgeInsetsDirectional.only(top: 3),
-                      color: Colors.grey[200],
-                      child: ListView.separated(
-                        itemCount:AppCubit.get(context).clients.length ,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index) =>BuildGridProduct(context,AppCubit.get(context).clients[index]),
-
-                        separatorBuilder: (BuildContext context, int index) => SizedBox(width: 9,) ,
+                    SizedBox(height: 20,),
+                    Center(
+                      child: tap(
+                          widget: paid_Adds(),
+                          icon: Icons.campaign,
+                          context: context,
+                          text: 'الاعلانات المدفوعه'
                       ),
                     ),
 
@@ -111,5 +111,47 @@ class ProductsScrean extends StatelessWidget {
     );
   }
 
+  Widget tap({
+  required context,
+    required widget,
+    required icon ,
+    required text,
+})=> GestureDetector(
+    onTap: (){
+      navigateTo(context, widget);
+    },
+  child:   Container(
+    padding:EdgeInsets.symmetric(horizontal: 3) ,
+
+      height: 140,
+
+      width: 140,
+
+      decoration: BoxDecoration(
+
+        color: Colors.blueAccent,
+
+        borderRadius: BorderRadius.circular(20)
+
+      ),
+
+      child: Column(
+
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        crossAxisAlignment: CrossAxisAlignment.center,
+
+        children: [
+
+          Icon(icon,size: 45,color: Colors.white,),
+
+          Text(text,style: TextStyle(height: 2,color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),)
+
+        ],
+
+      ),
+
+    ),
+);
 
 }

@@ -9,6 +9,7 @@ import 'package:kwader/modules/chose_post/chosePosts.dart';
 import 'package:kwader/modules/privcy/privcy.dart';
 import 'package:kwader/shared/components/components.dart';
 
+import '../modules/paid_adds/paid_adds.dart';
 import '../shared/components/constens.dart';
 
 class Home_Layout extends StatelessWidget {
@@ -44,6 +45,9 @@ drawer: Drawer(
       }),
       drawerWidget(icon: Icons.info, text: 'عن التطبيق',ontap: (){
         navigateTo(context, About_App());
+      }),
+      drawerWidget(icon: Icons.paid, text: 'الباقات',ontap: (){
+        navigateTo(context, paid_Adds());
       }),
       drawerWidget(icon: Icons.list_alt, text: 'الخصوصية',ontap: ()async{
        await getPrivecyText();
