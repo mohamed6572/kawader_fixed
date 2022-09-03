@@ -1,4 +1,4 @@
-package com.example.kwader
+package com.kawader.kwader
 
 import io.flutter.embedding.android.FlutterActivity
 

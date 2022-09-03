@@ -51,6 +51,7 @@ class AppRemovePostImageState extends AppStates {}
 class AppgetPostLoadingState extends AppStates {}
 
 class AppgetPostSucsesState extends AppStates {}
+class AppgetPosttSucsesState extends AppStates {}
 
 class AppgetPostErrorState extends AppStates {
   final String error;
@@ -72,6 +73,7 @@ class AppRemoveclientImageState extends AppStates {}
 class AppgetclientLoadingState extends AppStates {}
 
 class AppgetclientSucsesState extends AppStates {}
+class AppgetclienttSucsesState extends AppStates {}
 
 class AppgetclientErrorState extends AppStates {
   final String error;
@@ -79,6 +81,7 @@ class AppgetclientErrorState extends AppStates {
   AppgetclientErrorState(this.error);
 }
 
+class AppdeletepostSucssesState extends AppStates {}
 
 
 
