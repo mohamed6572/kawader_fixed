@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kwader/layout/Home_layout.dart';
 import 'package:kwader/layout/cubit/cubit.dart';
 import 'package:kwader/layout/cubit/states.dart';
+import 'package:kwader/modules/search/search.dart';
 import 'package:kwader/shared/components/components.dart';
 
 import '../../models/add_model.dart';
@@ -24,6 +25,16 @@ class Office extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.grey[200],
               appBar: AppBar(
+                actions: [
+
+                  GestureDetector(
+                    onTap: (){
+                      navigateTo(context, Search(collection: 'posts',));
+                    },
+
+                      child: Icon(Icons.search)),
+                  SizedBox(width: 15,),
+                ],
                 centerTitle: true,
                 title: Text(title),
               ),
@@ -32,7 +43,7 @@ class Office extends StatelessWidget {
 
                 child: GridView.count(
                   crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.47,
+                  childAspectRatio: 1 / 1.52,
                   crossAxisSpacing: 4,
                   mainAxisSpacing: 4,
                   shrinkWrap: true,

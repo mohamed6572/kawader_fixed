@@ -9,6 +9,7 @@ import 'package:kwader/shared/components/components.dart';
 
 import '../../models/add_model.dart';
 import '../add/add_details.dart';
+import '../search/search.dart';
 
 
 class Maids extends StatelessWidget {
@@ -24,6 +25,16 @@ Maids({required this.title});
           return Scaffold(
             backgroundColor: Colors.grey[200],
               appBar: AppBar(
+                actions: [
+
+                  GestureDetector(
+                      onTap: (){
+                        navigateTo(context, Search(collection: 'client',));
+                      },
+
+                      child: Icon(Icons.search)),
+                  SizedBox(width: 15,),
+                ],
                 centerTitle: true,
                 title: Text(title),
               ),
