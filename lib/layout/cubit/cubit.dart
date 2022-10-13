@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,7 +41,7 @@ emit(getSliderImageErrorState());
   void getUserData() {
     emit(AppGetUserLoadingState());
 
-    FirebaseFirestore.instance.collection('users').doc(uIdd).get().then((value) {
+    FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).get().then((value) {
       print(value.data());
       userModel = UserModel.fromJson(value.data()!);
       print(userModel?.name);
@@ -301,11 +302,11 @@ void backtohome(){
 }
   void ChangeIndex(index) {
     // if(index == 0)getAllUsers();
-    if (index == 1)
-      emit(AppNewPostState());
-    else {
+    // if (index == 1)
+    // emit(AppNewPostState());
+  // else {
       CurrentIndex = index;
       emit(AppChangeBottomNavState());
-    }
+   // }
   }
 }

@@ -15,14 +15,7 @@ import '../shared/components/constens.dart';
 class Home_Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit()
-        ..getUserData()
-        ..getSilderImage()
-      ..getpas()
-      ..getcli()
-       ,
-      child: BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {
           if(state is AppNewPostState){
             navigateTo(context, ChosePosts());
@@ -88,7 +81,7 @@ drawer: Drawer(
             ),
           );
         },
-      ),
+
     );
   }
   Widget drawerWidget({required icon,required text,required ontap})=> InkWell(

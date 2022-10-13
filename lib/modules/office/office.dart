@@ -43,7 +43,7 @@ class Office extends StatelessWidget {
 
                 child: GridView.count(
                   crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.52,
+                  childAspectRatio: 1 / 1.59,
                   crossAxisSpacing: 4,
                   mainAxisSpacing: 4,
                   shrinkWrap: true,

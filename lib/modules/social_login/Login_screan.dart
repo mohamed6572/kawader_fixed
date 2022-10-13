@@ -1,5 +1,7 @@
 import 'package:buildcondition/buildcondition.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kwader/layout/Home_layout.dart';
@@ -22,7 +24,7 @@ class LoginScrean extends StatelessWidget {
         listener: (context, state) {
           if(state is LoginSucsesState ){
             casheHelper.SavaData(
-                key: 'uIdd', value: state.uId
+                key: 'uIdd', value: FirebaseAuth.instance.currentUser?.uid
             )
                 .then((value) {
               navigateToAndFinish(context, Home_Layout());

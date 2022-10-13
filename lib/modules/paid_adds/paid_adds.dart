@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kwader/layout/Home_layout.dart';
+import 'package:kwader/modules/paid_adds/selvir.dart';
 import 'package:kwader/shared/components/components.dart';
+
+import 'gold.dart';
+import 'normal.dart';
 
 class paid_Adds extends StatelessWidget {
 
@@ -27,19 +31,19 @@ class paid_Adds extends StatelessWidget {
               context: context,
               iconColor: Colors.amber,
               icon: Icons.star,
-              widget: Home_Layout()
+              widget: Gold_Screen()
             ), paid_widget(
               text: 'الباقة الفضية',
               context: context,
               iconColor: Colors.blueGrey.shade200,
               icon: Icons.star,
-              widget: Home_Layout()
+              widget: Silver_Screen()
             ), paid_widget(
               text: 'الباقة العادية',
               context: context,
               iconColor: Colors.blueGrey.shade100,
               icon: Icons.style,
-              widget: Home_Layout()
+              widget: normal_Screen()
             ),
           ],
           ),
