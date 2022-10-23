@@ -57,10 +57,24 @@ Widget defultIcon({
       color: color,
     );
 
-Widget defultTextButtton(
-        {required String text, required void Function()? function}) =>
-    TextButton(onPressed: function, child: Text(text.toUpperCase()));
 
+Widget defultTextButtton(
+    {required String text, required void Function()? function}) =>
+    Container(
+
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.blue
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child:   TextButton(
+
+          onPressed: function, child: Text(text.toUpperCase(),style: TextStyle(
+          color: Colors.white,
+          fontSize: 24
+      ),)),
+    );
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
@@ -191,6 +205,6 @@ PreferredSizeWidget defultAppBar(
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back_ios),
+        icon: Icon(Icons.arrow_back,color: Colors.black,),
       ),
     );

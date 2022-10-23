@@ -13,27 +13,53 @@ class ChosePosts extends StatelessWidget{
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder:(context , state)=>
-          Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-        body: Center(child:
+          Center(child:
           Column(
+
             children: [
-              defultTextButtton(text: 'مكاتب', function:(){
-                navigateTo(context, New_Post_office_Screan());
-              } ),
+              SizedBox(height: 40,),
+
+              Container(
+
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromARGB(255, 17, 91, 128)
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child:   TextButton(
+
+                    onPressed: (){
+                      navigateTo(context, New_Post_office_Screan());
+                    }, child: Text('المكاتب'.toUpperCase(),style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24
+                ),)),
+              ),
+
               SizedBox(height: 20,),
-              defultTextButtton(text: 'شغالات', function:(){
-                navigateTo(context, New_Post_client_Screan());
-              } ),
+              Container(
+
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.black),
+                    color: Colors.white
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child:   TextButton(
+
+                    onPressed: (){
+                      navigateTo(context, New_Post_client_Screan());
+                    }, child: Text('الشغالات'.toUpperCase(),style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24
+                ),)),
+              ),
+
             ],
           )
-          ,),
-      ),
+            ,)
     );
   }
 }

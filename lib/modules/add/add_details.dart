@@ -19,18 +19,22 @@ class add_Details extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            elevation: 0.0,
+            centerTitle: true,
+            title: Text('تفاصيل الشفاله',style: TextStyle(color: Color.fromARGB(
+                255, 23, 218, 245),fontWeight: FontWeight.bold),),
+          ),
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    '${model?.title}',
-                    style: TextStyle(fontSize: 22),
-                  ),
+
                   SizedBox(
                     height: 10,
                   ),
@@ -44,6 +48,14 @@ class add_Details extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${model?.title}',
+                    style: TextStyle(fontSize: 22,color: Color.fromARGB(
+                        255, 23, 218, 245),fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -52,7 +64,9 @@ class add_Details extends StatelessWidget {
                       Text(
                         '${model?.price}',
                         style: TextStyle(
-                          fontSize: 28,
+                            fontSize: 28,
+                            color: Color.fromARGB(
+                                255, 62, 56, 115),fontWeight: FontWeight.bold
                         ),
                       ),
                       SizedBox(
@@ -62,7 +76,7 @@ class add_Details extends StatelessWidget {
                         ': السعر',
                         style: TextStyle(
                           fontSize: 22,
-                          color: Colors.black54,
+                          color: Color.fromARGB( 255, 23, 218, 245),
                         ),
                       ),
                     ],
@@ -70,25 +84,43 @@ class add_Details extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${model?.dateTime?.substring(0,16)}',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
+                      Row(
+                        children: [
+
+                          Text(
+                            ' ${model?.dateTime?.substring(0,11)}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                            style:
+                            TextStyle(fontSize: 14, color: Color.fromARGB(
+                                255, 23, 218, 245),fontWeight: FontWeight.bold),
+
+                          ),
+                          Icon(Icons.calendar_month_outlined),
+                        ],
                       ),
-                      SizedBox(
-                        width: 6,
+                      Row(
+                        children: [
+
+                          Text(
+                            ' ${model?.dateTime?.substring(10,16)}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                            style:
+                            TextStyle(fontSize: 14, color: Color.fromARGB(
+                                255, 23, 218, 245),fontWeight: FontWeight.bold),
+
+                          ),
+                          Icon(Icons.watch_later_outlined),
+                        ],
                       ),
-                      Text(
-                        ': تاريخ العرض',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black54,
-                        ),
-                      ),
+
                     ],
                   ),
                   SizedBox(
@@ -98,17 +130,16 @@ class add_Details extends StatelessWidget {
                     height: 35,
                   ),
                   Text(
-                    'description',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 22),
+                    'التفاصيل',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 22,color: Color.fromARGB( 255, 23, 218, 245)),
                   ),
-                  myDivider(),
                   Text(
                     '${model?.decrepthion}',
                     style: TextStyle(
                       height: 1.4,
                       fontSize: 16,
-                      color: Colors.black,
+                      color: Colors.grey.shade700,
                     ),
                   ),
                   SizedBox(

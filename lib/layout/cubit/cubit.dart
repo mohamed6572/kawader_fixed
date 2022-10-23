@@ -301,11 +301,11 @@ void backtohome(){
 }
   void ChangeIndex(index) {
     // if(index == 0)getAllUsers();
-    if (index == 1)
-      emit(AppNewPostState());
-    else {
+    // if (index == 1)
+    //   emit(AppNewPostState());
+    // else {
       CurrentIndex = index;
       emit(AppChangeBottomNavState());
-    }
+   // }
   }
 }

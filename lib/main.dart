@@ -1,4 +1,5 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,8 @@ import 'package:kwader/modules/social_login/Login_screan.dart';
 import 'package:kwader/shared/Bloc_Observer.dart';
 import 'package:kwader/shared/components/constens.dart';
 import 'package:kwader/shared/network/local/casheHelper.dart';
+
+import 'layout/cubit/states.dart';
 
 void main() {
   BlocOverrides.runZoned(
@@ -41,34 +44,35 @@ void main() {
 class MyApp extends StatelessWidget {
   Widget? StartWidget;
   MyApp({required this.StartWidget});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return
-      MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => AppCubit()
-            ..getUserData()
-             ..getSilderImage()
-            ,
+      BlocProvider(  create: (context) => AppCubit()
+        ..getUserData()
+        ..getSilderImage()
+        ..getpas()
+        ..getcli()
+          ..getofficeposts()
+          ,
 
-        )
-      ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
+          child: BlocConsumer<AppCubit,AppStates>(
+            listener: (context, state) {},
+            builder: (context, state) =>  MaterialApp(
+              debugShowCheckedModeBanner: false,
 
-          home: EasySplashScreen(
-            logo:Image(image: AssetImage("assets/images/logo.jpeg")),
-            logoSize: 100,
+              home: EasySplashScreen(
+                logo:Image(image: AssetImage("assets/images/logo.jpeg")),
+                logoSize: 100,
 
-            backgroundColor: Colors.white,
-            showLoader: false,
-            navigator: StartWidget,
-            durationInSeconds: 2,
-          ),
+                backgroundColor: Colors.white,
+                showLoader: false,
+                navigator: FirebaseAuth.instance.currentUser !=null? Home_Layout():LoginScrean(),
+                durationInSeconds: 2,
+              ),
 
-        ),
-      );
+            ),
+          ));
+
 
   }
 }
