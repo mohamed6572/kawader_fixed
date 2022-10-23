@@ -40,7 +40,7 @@ Maids({required this.title});
                 ],
                 centerTitle: true,
                 title: Text(title,style: TextStyle(color: Color.fromARGB(
-                    255, 23, 218, 245),fontWeight: FontWeight.bold),),
+                    255, 51, 227, 255),fontWeight: FontWeight.bold),),
               ),
               body:Container(
                 padding: EdgeInsetsDirectional.all(10),
