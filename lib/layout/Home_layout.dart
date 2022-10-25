@@ -15,80 +15,97 @@ import '../shared/components/constens.dart';
 class Home_Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit()
-        ..getUserData()
-        ..getSilderImage()
-      ..getpas()
-      ..getcli()
-       ,
-      child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {
-          if(state is AppNewPostState){
-            navigateTo(context, ChosePosts());
-          }
-        },
-        builder: (context, state) {
-          var cubit = AppCubit.get(context);
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {
+        if(state is AppNewPostState){
+          navigateTo(context, ChosePosts());
+        }
+      },
+      builder: (context, state) {
+        var cubit = AppCubit.get(context);
 
-          return SafeArea(
-            child: Scaffold(
-drawer: Drawer(
-  child:   Column(
-   // mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Image(image: AssetImage('assets/images/logo.jpeg')),
-      SizedBox(height: 30,),
-      drawerWidget(icon: Icons.home, text: 'الرئيسية',ontap: (){
-        Navigator.pop(context);
-        cubit.backtohome();
-      }),
-      drawerWidget(icon: Icons.info, text: 'عن التطبيق',ontap: (){
-        navigateTo(context, About_App());
-      }),
-      drawerWidget(icon: Icons.paid, text: 'الباقات',ontap: (){
-        navigateTo(context, paid_Adds());
-      }),
-      drawerWidget(icon: Icons.list_alt, text: 'الخصوصية',ontap: ()async{
-       await getPrivecyText();
-         navigateTo(context, privcy());
-      }),
-      drawerWidget(icon: Icons.call_rounded, text: 'اتصل بنا',ontap: ()async{
-        await getCAllText();
-         navigateTo(context, Call_US());
-      }),
-      drawerWidget(icon: Icons.share, text: 'مشاركة التطبيق',ontap: (){}),
-      drawerWidget(icon: Icons.logout, text: 'خروج',ontap: (){ SignOut(context);}),
+        return SafeArea(
+          child: Scaffold(
+            floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Color.fromARGB(255, 20, 91, 130),
+              onPressed: () {
+                // navigateTo(context, ChosePosts());
+                cubit.ChangeIndex(1);
+              },
+              child: Icon(Icons.add,size: 40,),
+            ),
+            drawer: Drawer(
+              child:   Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(image: AssetImage('assets/images/logo.jpeg')),
+                  SizedBox(height: 30,),
+                  drawerWidget(icon: Icons.home, text: 'الرئيسية',ontap: (){
+                    Navigator.pop(context);
+                    cubit.backtohome();
+                  }),
+                  drawerWidget(icon: Icons.info, text: 'عن التطبيق',ontap: (){
+                    navigateTo(context, About_App());
+                  }),
+                  drawerWidget(icon: Icons.paid, text: 'الباقات',ontap: (){
+                    navigateTo(context, paid_Adds());
+                  }),
+                  drawerWidget(icon: Icons.list_alt, text: 'الخصوصية',ontap: ()async{
+                    await getPrivecyText();
+                    navigateTo(context, privcy());
+                  }),
+                  drawerWidget(icon: Icons.call_rounded, text: 'اتصل بنا',ontap: ()async{
+                    await getCAllText();
+                    navigateTo(context, Call_US());
+                  }),
+                  drawerWidget(icon: Icons.share, text: 'مشاركة التطبيق',ontap: (){}),
+                  drawerWidget(icon: Icons.logout, text: 'خروج',ontap: (){ SignOut(context);}),
 
-    ],
-  ),
-),
-              appBar: AppBar(
-                title: Text(cubit.titles[cubit.CurrentIndex]),
-
-
-              ),
-              body: cubit.Screans[cubit.CurrentIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: cubit.CurrentIndex,
-                backgroundColor: Colors.white,
-                selectedItemColor: Colors.blue,
-                unselectedItemColor: Colors.grey,
-                onTap: (index){
-                  cubit.ChangeIndex(index);
-                },
-                items: [
-                  BottomNavigationBarItem(icon: Icon(Icons.home),label: 'الرئيسية'),
-
-                  BottomNavigationBarItem(icon: Icon(Icons.upload_file),label: 'اضافه اعلان'),
-
-                  BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'الاعدادات'),
                 ],
               ),
             ),
-          );
-        },
-      ),
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+              iconTheme: IconThemeData(
+                color: Colors.black
+              ),
+              title: Text(cubit.titles[cubit.CurrentIndex],style: TextStyle(color: Color.fromARGB(
+                  255, 146, 211, 238)),),
+            ),
+            body: cubit.Screans[cubit.CurrentIndex],
+              bottomNavigationBar: BottomAppBar(
+                child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: cubit.CurrentIndex,
+                  backgroundColor: Color.fromARGB(255, 20, 103, 138),
+                  selectedItemColor: Colors.white,
+                  unselectedItemColor: Colors.grey,
+                  onTap: (index) {
+                    cubit.ChangeIndex(index);
+                  },
+                  items: [
+                    BottomNavigationBarItem(
+                        icon: Icon(cubit.CurrentIndex == 0
+                            ? Icons.home
+                            : Icons.home_outlined),
+                        label: ''),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.abc,size: 10,),
+                        label: ''),
+                    BottomNavigationBarItem(
+                        icon: Icon(cubit.CurrentIndex == 2
+                            ? Icons.person
+                            : Icons.person_outline_outlined),
+                        label: ''),
+                  ],
+                ),
+              )
+          ),
+        );
+      },
     );
   }
   Widget drawerWidget({required icon,required text,required ontap})=> InkWell(

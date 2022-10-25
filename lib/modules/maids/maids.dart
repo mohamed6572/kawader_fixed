@@ -23,8 +23,11 @@ Maids({required this.title});
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: Colors.grey[200],
+              backgroundColor: Colors.white,
               appBar: AppBar(
+                elevation: 0.0,
+                backgroundColor: Colors.white,
+                iconTheme: IconThemeData(color: Colors.black),
                 actions: [
 
                   GestureDetector(
@@ -32,22 +35,23 @@ Maids({required this.title});
                         navigateTo(context, Search(collection: 'client',));
                       },
 
-                      child: Icon(Icons.search)),
-                  SizedBox(width: 15,),
+                      child: Icon(Icons.search,color: Colors.black)),
+                  SizedBox(width: 15),
                 ],
                 centerTitle: true,
-                title: Text(title),
+                title: Text(title,style: TextStyle(color: Color.fromARGB(
+                    255, 51, 227, 255),fontWeight: FontWeight.bold),),
               ),
               body:Container(
                 padding: EdgeInsetsDirectional.all(10),
 
                 child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.47,
+                  crossAxisCount: 1,
+                  childAspectRatio: 1 / 0.77,
                   crossAxisSpacing: 4,
                   mainAxisSpacing: 4,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+
                   children: List.generate(
                       AppCubit.get(context).clients.length,
                           (index) => ClipRRect(
@@ -75,7 +79,7 @@ Maids({required this.title});
       child: Container(
 
         width: 200,
-        height: 290,
+        height: 200,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: ClipRRect(
@@ -89,34 +93,98 @@ Maids({required this.title});
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (model.image != '')
-                        Image(
-                          image: NetworkImage('${model.image}'),
-                          width: double.infinity,
-                          height: 190,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child:  Image(
+                            image: NetworkImage('${model.image}'),
+                            width: double.infinity,
+                            fit: BoxFit.fill,
+                            height: 150,
+                          ),
                         ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          crossAxisAlignment: CrossAxisAlignment.
+                          stretch,
                           children: [
                             Text(
                               '${model.title}',
                               maxLines: 2,
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.end,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 14, height: 1.3),
+                              style: TextStyle(fontSize: 22, height: 1.3,color: Color.fromARGB(
+                                  255, 23, 218, 245),fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              '${model.price}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style:
-                              TextStyle(fontSize: 12, color: Colors.blue),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  ' ${model.price}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.end,
+                                  style:
+                                  TextStyle(fontSize: 18, color: Color.fromARGB(
+                                      255, 62, 56, 115),fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(width: 9,),
+                                Text(
+                                  'السعر ',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.end,
+                                  style:
+                                  TextStyle(fontSize: 16, color: Color.fromARGB(
+                                      255, 23, 218, 245),fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+
+                                    Text(
+                                      ' ${model.dateTime?.substring(0,11)}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.end,
+                                      style:
+                                      TextStyle(fontSize: 14, color: Color.fromARGB(
+                                          255, 23, 218, 245),fontWeight: FontWeight.bold),
+
+                                    ),
+                                    Icon(Icons.calendar_month_outlined),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+
+                                    Text(
+                                      ' ${model.dateTime?.substring(10,16)}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.end,
+                                      style:
+                                      TextStyle(fontSize: 14, color: Color.fromARGB(
+                                          255, 23, 218, 245),fontWeight: FontWeight.bold),
+
+                                    ),
+                                    Icon(Icons.watch_later_outlined),
+                                  ],
+                                ),
+
+                              ],
+                            )
+
                           ],
                         ),
                       )
