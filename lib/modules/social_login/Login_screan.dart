@@ -20,20 +20,15 @@ class LoginScrean extends StatelessWidget {
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
-          if(state is LoginSucsesState ){
-            casheHelper.SavaData(
-                key: 'uIdd', value: state.uId
-            )
-                .then((value) {
+          if (state is LoginSucsesState) {
+            casheHelper.SavaData(key: 'uIdd', value: state.uId).then((value) {
               navigateToAndFinish(context, Home_Layout());
             });
-
           }
         },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: Colors.white,
-
             appBar: AppBar(
               backgroundColor: Colors.white,
               elevation: 0.0,
@@ -68,33 +63,35 @@ class LoginScrean extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        if(state is LoginerrorState)
-                          Text('الايميل او الباسورد غير صحيحين يرجى المراجعة ',style: TextStyle(color: Colors.red,fontSize: 14),),
-
+                        if (state is LoginerrorState)
+                          Text(
+                            'الايميل او الباسورد غير صحيحين يرجى المراجعة ',
+                            style: TextStyle(color: Colors.red, fontSize: 14),
+                          ),
                         SizedBox(
                           height: 15,
                         ),
-
-
                         Row(children: [
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: CountryCodePicker(
+                              onChanged: (code) {
+                                LoginCubit.get(context).countryCode = code;
+                                print(code);
+                              },
                               showFlagMain: true,
                               initialSelection: 'OM',
                               showCountryOnly: true,
                               alignLeft: true,
-                            countryFilter: <String>['OM', 'SA', 'qa', 'KW'],
+                              countryFilter: <String>['OM', 'SA', 'qa', 'KW'],
                             ),
                           ),
                           Expanded(
-                            flex: 2,
-                            child:
-                            defultFormField(
+                            flex: 3,
+                            child: defultFormField(
                               type: TextInputType.phone,
                               controller: phoneController,
                               label: '+00000000',
-
                               validator: (text) {
                                 if (text == null || text.trim().isEmpty) {
                                   return 'Please Enter phone number';
@@ -102,7 +99,6 @@ class LoginScrean extends StatelessWidget {
                                 return null;
                               },
                             ),
-
                           )
                         ]),
                         SizedBox(
@@ -113,19 +109,16 @@ class LoginScrean extends StatelessWidget {
                             controller: passwordController,
                             label: 'كلمه السر',
                             suffix: LoginCubit.get(context).suffix,
-                            isPassword:
-                                LoginCubit.get(context).isPassword,
+                            isPassword: LoginCubit.get(context).isPassword,
                             onSubmeted: (value) {
                               if (formkey.currentState!.validate()) {
                                 LoginCubit.get(context).userLogin(
                                     email: '${phoneController.text}@gmail.com',
-                                    password: passwordController.text
-                                );
+                                    password: passwordController.text);
                               }
                             },
                             passwordShow: () {
-                              LoginCubit.get(context)
-                                  .ChangePasswordVisibilty();
+                              LoginCubit.get(context).ChangePasswordVisibilty();
                             },
                             prefix: Icons.lock_outline,
                             validator: (value) {
@@ -138,17 +131,29 @@ class LoginScrean extends StatelessWidget {
                         ),
                         BuildCondition(
                           condition: state is! LoginLodingState,
-                          builder: (context) => defultButton(
-                            text: 'تسجيل الدخول',
-                            isUpperCase: true,
-                            function: () {
-                              if (formkey.currentState!.validate()) {
-                                LoginCubit.get(context).userLogin(
-                                    email:'${phoneController.text}@gmail.com',
-                                    password: passwordController.text);
-                              }
-                            },
-                          ),
+                          builder: (context) =>
+                              Container(
+
+                                width: double.infinity,
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    if (formkey.currentState!.validate()) {
+                                      LoginCubit.get(context).userLogin(
+                                          email: '${phoneController.text}@gmail.com',
+                                          password: passwordController.text);
+                                    }
+                                  },
+                                  child: Text('تسجيل الدخول',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.blue,
+                                ),
+                              ),
+
+
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),
@@ -158,12 +163,10 @@ class LoginScrean extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+
                             Text('ليس لديك حساب ?'),
-                            defultTextButtton(
-                                text: 'انشاء حساب',
-                                function: () {
-                                  navigateTo(context, RegisterScrean());
-                                }),
+                            TextButton(onPressed: (){ navigateTo(context, RegisterScrean());}, child: Text('انشاء حساب'))
+
                           ],
                         )
                       ],
@@ -171,7 +174,7 @@ class LoginScrean extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            )
           );
         },
       ),

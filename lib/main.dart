@@ -11,6 +11,7 @@ import 'package:kwader/shared/components/constens.dart';
 import 'package:kwader/shared/network/local/casheHelper.dart';
 
 import 'layout/cubit/states.dart';
+import 'modules/social_Register/cubit/Cubit.dart';
 
 void main() {
   BlocOverrides.runZoned(
@@ -47,32 +48,39 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
+    MultiBlocProvider(providers: [
       BlocProvider(  create: (context) => AppCubit()
         ..getUserData()
         ..getSilderImage()
         ..getpas()
         ..getcli()
-          ..getofficeposts()
-          ,
+        ..getofficeposts()
+        ,
 
-          child: BlocConsumer<AppCubit,AppStates>(
-            listener: (context, state) {},
-            builder: (context, state) =>  MaterialApp(
-              debugShowCheckedModeBanner: false,
 
-              home: EasySplashScreen(
-                logo:Image(image: AssetImage("assets/images/logo.jpeg")),
-                logoSize: 100,
+      ),
+      BlocProvider( create: (context) => RegisterCubit(),)
+    ], child:  BlocConsumer<AppCubit,AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) =>  MaterialApp(
+        debugShowCheckedModeBanner: false,
 
-                backgroundColor: Colors.white,
-                showLoader: false,
-                navigator: FirebaseAuth.instance.currentUser !=null? Home_Layout():LoginScrean(),
-                durationInSeconds: 2,
-              ),
+        home: EasySplashScreen(
+          logo:Image(image: AssetImage("assets/images/logo.jpeg")),
+          logoSize: 100,
 
-            ),
-          ));
+          backgroundColor: Colors.white,
+          showLoader: false,
+          navigator: FirebaseAuth.instance.currentUser !=null? Home_Layout():LoginScrean(),
+          durationInSeconds: 2,
+        ),
+
+      ),
+    ));
+
+
 
 
   }
 }
+//

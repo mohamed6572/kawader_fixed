@@ -1,7 +1,10 @@
 import 'package:buildcondition/buildcondition.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kwader/layout/Home_layout.dart';
+import 'package:kwader/layout/cubit/cubit.dart';
 import 'package:kwader/modules/social_Register/cubit/Cubit.dart';
 import 'package:kwader/modules/social_Register/cubit/States.dart';
 import 'package:kwader/modules/social_login/Login_screan.dart';
@@ -15,9 +18,8 @@ class RegisterScrean extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: BlocConsumer<RegisterCubit, RegisterStates>(
+    return
+      BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if(state is CreateUserSucseslState ){
 
@@ -77,17 +79,47 @@ class RegisterScrean extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        defultFormField(
-                          type: TextInputType.phone,
-                          controller: phoneController,
-                          label: 'رقم الهاتف',
-                          prefix: Icons.phone,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'phone must not be empty';
-                            }
-                          },
-                        ),
+                        // defultFormField(
+                        //   type: TextInputType.phone,
+                        //   controller: phoneController,
+                        //   label: 'رقم الهاتف',
+                        //   prefix: Icons.phone,
+                        //   validator: (value) {
+                        //     if (value!.isEmpty) {
+                        //       return 'phone must not be empty';
+                        //     }
+                        //   },
+                        // ),
+                        Row(children: [
+                          Expanded(
+                            flex: 2,
+                            child: CountryCodePicker(
+                              onChanged: (code) {
+                                RegisterCubit.get(context).countryCode = code;
+                                print(code);
+                              },
+                              showFlagMain: true,
+                              initialSelection: 'OM',
+                              showCountryOnly: true,
+                              alignLeft: true,
+                              countryFilter: <String>['OM', 'SA', 'qa', 'KW','EG'],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: defultFormField(
+                              type: TextInputType.phone,
+                              controller: phoneController,
+                              label: '+00000000',
+                              validator: (text) {
+                                if (text == null || text.trim().isEmpty) {
+                                  return 'Please Enter phone number';
+                                }
+                                return null;
+                              },
+                            ),
+                          )
+                        ]),
                         SizedBox(
                           height: 15,
                         ),
@@ -117,15 +149,13 @@ class RegisterScrean extends StatelessWidget {
                             text: 'انشاء حساب',
                             isUpperCase: true,
                             function: () {
+                              RegisterCubit.get(context).userRegister(
+                                context: context,
+                                name: nameController.text,
+                                password: passwordController.text,
+                                phone: '${RegisterCubit.get(context).countryCode.toString() + phoneController.text}'
+                              );
 
-                              if (formkey.currentState!.validate()) {
-                                RegisterCubit.get(context).userRegister(
-                                    password: passwordController.text,
-                                    name: nameController.text,
-                                    phone: '${phoneController.text}@gmail.com'
-                                );
-
-                              }
                             },
                           ),
                           fallback: (context) =>
@@ -142,7 +172,7 @@ class RegisterScrean extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
+      );
+
   }
 }

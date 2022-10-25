@@ -37,6 +37,7 @@ dependencies:
   country_code_picker: ^2.0.0
   shared_preferences: ^2.0.13
   smooth_page_indicator: ^1.0.0+2
+  pinput: ^2.2.12
 
 
   #firebase
